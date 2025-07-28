@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>El Acento Aventurero: Agudas, Graves y Esdrújulas</title>
+    <style>
+        /* Estilos Generales */
+        body {
+            font-family: 'Open Sans', sans-serif; /* Puedes cambiar la fuente si quieres */
+            background: linear-gradient(to right, #8EC5FC, #E0C3FC); /* Fondo degradado */
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: #4CAF50; /* Verde vibrante */
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 3em;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        header p {
+            font-size: 1.2em;
+            margin-top: 5px;
+        }
+
+        main {
+            flex-grow: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .card {
+            background-color: #fff;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            padding: 30px;
+            margin: 20px;
+            max-width: 800px;
+            width: 100%;
+            text-align: center;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* Estilos de la Sección de Información */
+        #informacion h2 {
+            color: #00796B;
+            font-size: 2.2em;
+            margin-bottom: 25px;
+        }
+
+        .info-content {
+            text-align: left;
+            margin-bottom: 30px;
+        }
+
+        .info-content h3 {
+            color: #3F51B5;
+            font-size: 1.6em;
+            margin-top: 20px;
+            border-bottom: 2px solid #3F51B5;
+            padding-bottom: 5px;
+        }
+
+        .info-content p {
+            font-size: 1.1em;
+            margin-bottom: 10px;
+        }
+
+        .info-content .ejemplo {
+            font-style: italic;
+            color: #666;
+            margin-top: -5px;
+            margin-bottom: 20px;
+        }
+
+        /* Estilos para Botones Generales */
+        .btn-principal {
+            background-color: #FFC107; /* Amarillo */
+            color: #333;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-size: 1.5em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-principal:hover {
+            background-color: #FFA000;
+            transform: translateY(-2px);
+        }
+
+        .btn-secundario {
+            background-color: #9E9E9E; /* Gris */
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 1.2em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .btn-secundario:hover {
+            background-color: #757575;
+        }
+
+        /* Estilos de la Sección de Juego */
+        #juego h2 {
+            color: #E91E63;
+            font-size: 2.2em;
+            margin-bottom: 25px;
+        }
+
+        .marcador {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #6A1B9A;
+            margin-bottom: 20px;
+        }
+
+        .palabra-container {
+            background-color: #F8F8F8;
+            border: 2px solid #E0E0E0;
+            border-radius: 10px;
+            padding: 30px 50px;
+            margin: 30px auto;
+            width: fit-content;
+            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        #palabra-a-clasificar {
+            font-size: 4em;
+            font-weight: bold;
+            color: #3F51B5; /* Azul principal */
+            text-transform: uppercase;
+            margin: 0;
+        }
+
+        .botones-juego {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+            flex-wrap: wrap; /* Para pantallas pequeñas */
+        }
+
+        .btn-opcion {
+            border: none;
+            padding: 20px 40px;
+            border-radius: 10px;
+            font-size: 1.8em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            min-width: 180px; /* Asegura un tamaño mínimo */
+        }
+
+        .btn-opcion[data-tipo="aguda"] {
+            background-color: #FFEB3B; /* Amarillo claro */
+            color: #444;
+        }
+        .btn-opcion[data-tipo="aguda"]:hover {
+            background-color: #FDD835;
+            transform: scale(1.05);
+            box-shadow: 0 6px 12px rgba(255, 235, 59, 0.5);
+        }
+
+        .btn-opcion[data-tipo="grave"] {
+            background-color: #8BC34A; /* Verde claro */
+            color: white;
+        }
+        .btn-opcion[data-tipo="grave"]:hover {
+            background-color: #7CB342;
+            transform: scale(1.05);
+            box-shadow: 0 6px 12px rgba(139, 195, 74, 0.5);
+        }
+
+        .btn-opcion[data-tipo="esdrujula"] {
+            background-color: #2196F3; /* Azul brillante */
+            color: white;
+        }
+        .btn-opcion[data-tipo="esdrujula"]:hover {
+            background-color: #1976D2;
+            transform: scale(1.05);
+            box-shadow: 0 6px 12px rgba(33, 150, 243, 0.5);
+        }
+
+        /* Mensajes de Feedback */
+        .feedback-text {
+            font-size: 1.8em;
+            font-weight: bold;
+            margin-top: 25px;
+            min-height: 40px; /* Para evitar saltos de diseño */
+        }
+
+        .feedback-text.correcto {
+            color: #4CAF50; /* Verde para correcto */
+        }
+
+        .feedback-text.incorrecto {
+            color: #F44336; /* Rojo para incorrecto */
+        }
+
+        /* Footer */
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 15px 0;
+            font-size: 0.9em;
+            margin-top: auto; /* Empuja el footer hacia abajo */
+        }
+
+        /* Media Queries para Responsividad */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2.2em;
+            }
+            header p {
+                font-size: 1em;
+            }
+            .card {
+                padding: 20px;
+                margin: 10px;
+            }
+            #informacion h2, #juego h2 {
+                font-size: 1.8em;
+            }
+            .info-content h3 {
+                font-size: 1.4em;
+            }
+            .info-content p {
+                font-size: 1em;
+            }
+            .btn-principal {
+                font-size: 1.2em;
+                padding: 12px 25px;
+            }
+            #palabra-a-clasificar {
+                font-size: 3em;
+            }
+            .btn-opcion {
+                font-size: 1.5em;
+                padding: 15px 25px;
+                min-width: 140px;
+            }
+            .botones-juego {
+                flex-direction: column;
+                align-items: center;
+                gap: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header h1 {
+                font-size: 1.8em;
+            }
+            .btn-principal {
+                width: 90%;
+            }
+            #palabra-a-clasificar {
+                font-size: 2.5em;
+                padding: 20px 30px;
+            }
+            .btn-opcion {
+                font-size: 1.3em;
+                padding: 12px 20px;
+                width: 80%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>El Acento Aventurero 🚀</h1>
+        <p>¡Aprende y juega con las palabras!</p>
+    </header>
+
+    <main>
+        <section id="informacion" class="card">
+            <h2>¿Qué son las palabras Agudas, Graves y Esdrújulas? 🤔</h2>
+            <div class="info-content">
+                <h3>Palabras Agudas</h3>
+                <p>¡Llevan la fuerza en la <strong>última</strong> sílaba! Piensa en palabras como ca-mi-ÓN, ra-TÓN, can-CIÓN. Si terminan en N, S o vocal, ¡llevan tilde!</p>
+                <p class="ejemplo">Ejemplos: camión, sofá, compás, vivir, feliz</p>
+
+                <h3>Palabras Graves (o Llanas)</h3>
+                <p>¡La fuerza está en la <strong>penúltima</strong> sílaba! Como LÁ-piz, CAsa, ÁR-bol. Llevan tilde si NO terminan en N, S o vocal.</p>
+                <p class="ejemplo">Ejemplos: árbol, lápiz, cárcel, mesa, libro</p>
+
+                <h3>Palabras Esdrújulas</h3>
+                <p>¡La fuerza está en la <strong>antepenúltima</strong> sílaba! ¡Son muy especiales porque siempre llevan tilde! Ejemplos: MÚ-si-ca, TE-LÉ-fo-no, PÁ-ja-ro.</p>
+                <p class="ejemplo">Ejemplos: música, teléfono, pájaro, pirámide, brújula</p>
+            </div>
+            <button id="comenzar-juego" class="btn-principal">¡Comenzar el Juego! ▶️</button>
+        </section>
+
+        <section id="juego" class="card hidden">
+            <h2>¡Clasifica el Tesoro de Palabras! 💰</h2>
+            <div class="marcador">
+                <p>Puntuación: <span id="puntuacion-actual">0</span> / <span id="palabras-jugadas">0</span></p>
+            </div>
+            <div class="palabra-container">
+                <p id="palabra-a-clasificar">¡Cargando palabra...</p>
+            </div>
+            <div class="botones-juego">
+                <button class="btn-opcion" data-tipo="aguda">AGUDA</button>
+                <button class="btn-opcion" data-tipo="grave">GRAVE</button>
+                <button class="btn-opcion" data-tipo="esdrujula">ESDRÚJULA</button>
+            </div>
+            <p id="mensaje-feedback" class="feedback-text"></p>
+            <button id="reiniciar-juego" class="btn-secundario">Reiniciar Juego 🔄</button>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 El Acento Aventurero. ¡Hecho con diversión para aprender! ✨</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- Elementos del DOM ---
+            const infoSection = document.getElementById('informacion');
+            const gameSection = document.getElementById('juego');
+            const startButton = document.getElementById('comenzar-juego');
+            const restartButton = document.getElementById('reiniciar-juego');
+            const wordDisplay = document.getElementById('palabra-a-clasificar');
+            const scoreSpan = document.getElementById('puntuacion-actual');
+            const playedWordsSpan = document.getElementById('palabras-jugadas');
+            const feedbackMessage = document.getElementById('mensaje-feedback');
+            const optionButtons = document.querySelectorAll('.btn-opcion');
+
+            // --- Listas de palabras (¡Añade muchas más!) ---
+            const palabrasData = [
+                { palabra: "ratón", tipo: "aguda" },
+                { palabra: "café", tipo: "aguda" },
+                { palabra: "balón", tipo: "aguda" },
+                { palabra: "canción", tipo: "aguda" },
+                { palabra: "jardín", tipo: "aguda" },
+                { palabra: "limón", tipo: "aguda" },
+                { palabra: "camión", tipo: "aguda" },
+                { palabra: "papel", tipo: "aguda" },
+                { palabra: "reloj", tipo: "aguda" },
+                { palabra: "azul", tipo: "aguda" },
+                { palabra: "comer", tipo: "aguda" },
+                { palabra: "vivir", tipo: "aguda" },
+                { palabra: "pared", tipo: "aguda" },
+                { palabra: "usted", tipo: "aguda" },
+                { palabra: "tambor", tipo: "aguda" },
+                // --- Graves ---
+                { palabra: "árbol", tipo: "grave" },
+                { palabra: "mesa", tipo: "grave" },
+                { palabra: "silla", tipo: "grave" },
+                { palabra: "libro", tipo: "grave" },
+                { palabra: "lápiz", tipo: "grave" },
+                { palabra: "casa", tipo: "grave" },
+                { palabra: "perro", tipo: "grave" },
+                { palabra: "gato", tipo: "grave" },
+                { palabra: "flor", tipo: "grave" },
+                { palabra: "verde", tipo: "grave" },
+                { palabra: "coche", tipo: "grave" },
+                { palabra: "dulce", tipo: "grave" },
+                { palabra: "mesa", tipo: "grave" },
+                { palabra: "difícil", tipo: "grave" },
+                { palabra: "ángel", tipo: "grave" },
+                // --- Esdrújulas ---
+                { palabra: "teléfono", tipo: "esdrujula" },
+                { palabra: "música", tipo: "esdrujula" },
+                { palabra: "pájaros", tipo: "esdrujula" },
+                { palabra: "brújula", tipo: "esdrujula" },
+                { palabra: "murciélago", tipo: "esdrujula" },
+                { palabra: "película", tipo: "esdrujula" },
+                { palabra: "máquina", tipo: "esdrujula" },
+                { palabra: "matemáticas", tipo: "esdrujula" },
+                { palabra: "número", tipo: "esdrujula" },
+                { palabra: "página", tipo: "esdrujula" },
+                { palabra: "ejército", tipo: "esdrujula" },
+                { palabra: "príncipe", tipo: "esdrujula" },
+                { palabra: "fantástico", tipo: "esdrujula" },
+                { palabra: "océano", tipo: "esdrujula" }
+            ];
+
+            let palabrasMezcladas = [];
+            let puntuacion = 0;
+            let palabrasJugadas = 0;
+            let palabraActual = null;
+
+            // --- Funciones del Juego ---
+
+            // Mezcla las palabras al inicio o al reiniciar
+            function mezclarPalabras() {
+                palabrasMezcladas = [...palabrasData]; // Copia el array original
+                for (let i = palabrasMezcladas.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [palabrasMezcladas[i], palabrasMezcladas[j]] = [palabrasMezcladas[j], palabrasMezcladas[i]];
+                }
+            }
+
+            function cargarSiguientePalabra() {
+                if (palabrasJugadas >= palabrasMezcladas.length) {
+                    mostrarResultadoFinal();
+                    return;
+                }
+
+                palabraActual = palabrasMezcladas[palabrasJugadas];
+                wordDisplay.textContent = palabraActual.palabra.toUpperCase();
+                feedbackMessage.textContent = ''; // Limpia el mensaje anterior
+                feedbackMessage.className = 'feedback-text'; // Resetea clases de estilo
+                habilitarBotones(true);
+            }
+
+            function verificarRespuesta(tipoElegido) {
+                habilitarBotones(false); // Deshabilita los botones mientras se muestra el feedback
+
+                if (tipoElegido === palabraActual.tipo) {
+                    puntuacion++;
+                    feedbackMessage.textContent = '¡Correcto! 🎉';
+                    feedbackMessage.classList.add('correcto');
+                } else {
+                    feedbackMessage.textContent = `¡Incorrecto! Era ${palabraActual.tipo.toUpperCase()} 😕`;
+                    feedbackMessage.classList.add('incorrecto');
+                }
+                
+                palabrasJugadas++;
+                actualizarMarcador();
+
+                // Espera un segundo y medio antes de cargar la siguiente palabra
+                setTimeout(cargarSiguientePalabra, 1500);
+            }
+
+            function actualizarMarcador() {
+                scoreSpan.textContent = puntuacion;
+                playedWordsSpan.textContent = palabrasJugadas;
+            }
+
+            function habilitarBotones(estado) {
+                optionButtons.forEach(button => {
+                    button.disabled = !estado;
+                });
+            }
+
+            function mostrarResultadoFinal() {
+                wordDisplay.textContent = "¡Juego Terminado!";
+                feedbackMessage.textContent = `Tu puntuación final es: ${puntuacion} de ${palabrasJugadas} palabras. ¡Muy bien!`;
+                feedbackMessage.classList.add('feedback-text'); // Asegura que tenga la clase base
+                feedbackMessage.classList.add(puntuacion > palabrasJugadas / 2 ? 'correcto' : 'incorrecto'); // Color según resultado
+                feedbackMessage.classList.remove(puntuacion > palabrasJugadas / 2 ? 'incorrecto' : 'correcto'); // Quita la clase opuesta
+                habilitarBotones(false);
+                restartButton.style.display = 'block'; // Muestra el botón de reiniciar
+            }
+
+            function reiniciarJuego() {
+                puntuacion = 0;
+                palabrasJugadas = 0;
+                mezclarPalabras();
+                actualizarMarcador();
+                restartButton.style.display = 'none'; // Oculta el botón de reiniciar
+                feedbackMessage.textContent = '';
+                gameSection.classList.remove('hidden'); // Asegurarse de que el juego esté visible
+                cargarSiguiente_palabra(); // Inicia con la primera palabra
+            }
+
+            // --- Event Listeners ---
+            startButton.addEventListener('click', () => {
+                infoSection.classList.add('hidden'); // Oculta la sección de información
+                gameSection.classList.remove('hidden'); // Muestra la sección del juego
+                reiniciarJuego(); // Inicia el juego
+            });
+
+            restartButton.addEventListener('click', reiniciarJuego);
+
+            optionButtons.forEach(button => {
+                button.addEventListener('click', (event) => {
+                    verificarRespuesta(event.target.dataset.tipo);
+                });
+            });
+
+            // --- Inicialización al cargar la página ---
+            mezclarPalabras(); // Mezcla las palabras la primera vez
+            actualizarMarcador(); // Inicializa el marcador
+        });
+    </script>
+</body>
+</html>
