@@ -55,6 +55,7 @@
             width: 100%;
             text-align: center;
             transition: transform 0.3s ease-in-out;
+            border: 2px solid #ddd; /* Borde suave */
         }
 
         .card:hover {
@@ -79,22 +80,34 @@
 
         .info-content h3 {
             color: #3F51B5;
-            font-size: 1.6em;
-            margin-top: 20px;
+            font-size: 1.8em; /* Un poco más grande */
+            margin-top: 25px;
             border-bottom: 2px solid #3F51B5;
-            padding-bottom: 5px;
+            padding-bottom: 8px; /* Más espacio */
+            display: flex; /* Para alinear el ícono */
+            align-items: center;
+            gap: 10px; /* Espacio entre ícono y texto */
+        }
+
+        .info-content h3 .icon {
+            font-size: 1.2em;
         }
 
         .info-content p {
-            font-size: 1.1em;
-            margin-bottom: 10px;
+            font-size: 1.15em; /* Ligeramente más grande */
+            margin-bottom: 12px;
+            line-height: 1.8; /* Mejor interlineado */
+            color: #555;
         }
 
         .info-content .ejemplo {
             font-style: italic;
             color: #666;
             margin-top: -5px;
-            margin-bottom: 20px;
+            margin-bottom: 25px; /* Más espacio */
+            padding-left: 15px; /* Indentación para ejemplos */
+            border-left: 3px solid #FFC107; /* Borde decorativo */
+            line-height: 1.5;
         }
 
         /* Estilos para Botones Generales */
@@ -107,13 +120,14 @@
             font-size: 1.5em;
             font-weight: bold;
             cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.2s ease;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
         .btn-principal:hover {
             background-color: #FFA000;
-            transform: translateY(-2px);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
         }
 
         .btn-secundario {
@@ -127,6 +141,7 @@
             cursor: pointer;
             transition: background-color 0.3s ease;
             margin-top: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
         .btn-secundario:hover {
@@ -155,6 +170,7 @@
             margin: 30px auto;
             width: fit-content;
             box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
+            overflow: hidden; /* Para que la animación de entrada se vea bien */
         }
 
         #palabra-a-clasificar {
@@ -163,6 +179,16 @@
             color: #3F51B5; /* Azul principal */
             text-transform: uppercase;
             margin: 0;
+            opacity: 0; /* Oculto por defecto para la animación */
+            transform: translateY(20px); /* Ligeramente desplazado para la animación */
+            animation: fadeInWord 0.5s ease-out forwards; /* Animación */
+        }
+
+        @keyframes fadeInWord {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .botones-juego {
@@ -309,17 +335,17 @@
         <section id="informacion" class="card">
             <h2>¿Qué son las palabras Agudas, Graves y Esdrújulas? 🤔</h2>
             <div class="info-content">
-                <h3>Palabras Agudas</h3>
-                <p>¡Llevan la fuerza en la <strong>última</strong> sílaba! Piensa en palabras como ca-mi-ÓN, ra-TÓN, can-CIÓN. Si terminan en N, S o vocal, ¡llevan tilde!</p>
-                <p class="ejemplo">Ejemplos: camión, sofá, compás, vivir, feliz</p>
+                <h3><span class="icon">✨</span> Palabras **Agudas**</h3>
+                <p>¡Son palabras valientes que llevan la fuerza en la **última** sílaba! 💪<br>Piensa en palabras como ca-mi-**ÓN**, ra-**TÓN**, can-**CIÓN**. ¡Si terminan en N, S o vocal, llevan tilde!</p>
+                <p class="ejemplo">Ejemplos: camión, sofá, compás, vivir, feliz, mamá, café</p>
 
-                <h3>Palabras Graves (o Llanas)</h3>
-                <p>¡La fuerza está en la <strong>penúltima</strong> sílaba! Como LÁ-piz, CAsa, ÁR-bol. Llevan tilde si NO terminan en N, S o vocal.</p>
-                <p class="ejemplo">Ejemplos: árbol, lápiz, cárcel, mesa, libro</p>
+                <h3><span class="icon">🌿</span> Palabras **Graves** (o Llanas)</h3>
+                <p>¡Son palabras tranquilas donde la fuerza está en la **penúltima** sílaba! 🧘‍♀️<br>Como **LÁ**-piz, **CA**-sa, **ÁN**-gel. Llevan tilde si **NO** terminan en N, S o vocal.</p>
+                <p class="ejemplo">Ejemplos: árbol, lápiz, cárcel, mesa, libro, azúcar, dócil</p>
 
-                <h3>Palabras Esdrújulas</h3>
-                <p>¡La fuerza está en la <strong>antepenúltima</strong> sílaba! ¡Son muy especiales porque siempre llevan tilde! Ejemplos: MÚ-si-ca, TE-LÉ-fo-no, PÁ-ja-ro.</p>
-                <p class="ejemplo">Ejemplos: música, teléfono, pájaro, pirámide, brújula</p>
+                <h3><span class="icon">🌈</span> Palabras **Esdrújulas**</h3>
+                <p>¡Son palabras mágicas y muy especiales! ✨ La fuerza siempre está en la **antepenúltima** sílaba y **siempre** llevan tilde.<br>Ejemplos: **MÚ**-si-ca, **TE**-LÉ-fo-no, **PÁ**-ja-ro.</p>
+                <p class="ejemplo">Ejemplos: música, teléfono, pájaro, pirámide, brújula, rápido, plátano</p>
             </div>
             <button id="comenzar-juego" class="btn-principal">¡Comenzar el Juego! ▶️</button>
         </section>
@@ -376,6 +402,11 @@
                 { palabra: "pared", tipo: "aguda" },
                 { palabra: "usted", tipo: "aguda" },
                 { palabra: "tambor", tipo: "aguda" },
+                { palabra: "además", tipo: "aguda" },
+                { palabra: "feliz", tipo: "aguda" },
+                { palabra: "salón", tipo: "aguda" },
+                { palabra: "corazón", tipo: "aguda" },
+                { palabra: "quizás", tipo: "aguda" },
                 // --- Graves ---
                 { palabra: "árbol", tipo: "grave" },
                 { palabra: "mesa", tipo: "grave" },
@@ -389,9 +420,14 @@
                 { palabra: "verde", tipo: "grave" },
                 { palabra: "coche", tipo: "grave" },
                 { palabra: "dulce", tipo: "grave" },
-                { palabra: "mesa", tipo: "grave" },
                 { palabra: "difícil", tipo: "grave" },
                 { palabra: "ángel", tipo: "grave" },
+                { palabra: "fácil", tipo: "grave" },
+                { palabra: "azúcar", tipo: "grave" },
+                { palabra: "césped", tipo: "grave" },
+                { palabra: "clase", tipo: "grave" },
+                { palabra: "jueves", tipo: "grave" },
+                { palabra: "mango", tipo: "grave" },
                 // --- Esdrújulas ---
                 { palabra: "teléfono", tipo: "esdrujula" },
                 { palabra: "música", tipo: "esdrujula" },
@@ -406,7 +442,13 @@
                 { palabra: "ejército", tipo: "esdrujula" },
                 { palabra: "príncipe", tipo: "esdrujula" },
                 { palabra: "fantástico", tipo: "esdrujula" },
-                { palabra: "océano", tipo: "esdrujula" }
+                { palabra: "océano", tipo: "esdrujula" },
+                { palabra: "cámara", tipo: "esdrujula" },
+                { palabra: "rápido", tipo: "esdrujula" },
+                { palabra: "esdrújula", tipo: "esdrujula" },
+                { palabra: "informática", tipo: "esdrujula" },
+                { palabra: "kilómetro", tipo: "esdrujula" },
+                { palabra: "semáforo", tipo: "esdrujula" }
             ];
 
             let palabrasMezcladas = [];
@@ -426,6 +468,11 @@
             }
 
             function cargarSiguientePalabra() {
+                // Elimina la clase de animación para que se pueda volver a aplicar
+                wordDisplay.classList.remove('fadeInWord');
+                // Fuerza un reflow para que la animación se reinicie
+                void wordDisplay.offsetWidth; 
+
                 if (palabrasJugadas >= palabrasMezcladas.length) {
                     mostrarResultadoFinal();
                     return;
@@ -436,6 +483,7 @@
                 feedbackMessage.textContent = ''; // Limpia el mensaje anterior
                 feedbackMessage.className = 'feedback-text'; // Resetea clases de estilo
                 habilitarBotones(true);
+                wordDisplay.classList.add('fadeInWord'); // Aplica la clase para la animación
             }
 
             function verificarRespuesta(tipoElegido) {
@@ -445,9 +493,11 @@
                     puntuacion++;
                     feedbackMessage.textContent = '¡Correcto! 🎉';
                     feedbackMessage.classList.add('correcto');
+                    feedbackMessage.classList.remove('incorrecto');
                 } else {
                     feedbackMessage.textContent = `¡Incorrecto! Era ${palabraActual.tipo.toUpperCase()} 😕`;
                     feedbackMessage.classList.add('incorrecto');
+                    feedbackMessage.classList.remove('correcto');
                 }
                 
                 palabrasJugadas++;
@@ -470,10 +520,12 @@
 
             function mostrarResultadoFinal() {
                 wordDisplay.textContent = "¡Juego Terminado!";
+                // Asegúrate de que la animación no se aplique al mensaje final
+                wordDisplay.classList.remove('fadeInWord'); 
                 feedbackMessage.textContent = `Tu puntuación final es: ${puntuacion} de ${palabrasJugadas} palabras. ¡Muy bien!`;
                 feedbackMessage.classList.add('feedback-text'); // Asegura que tenga la clase base
-                feedbackMessage.classList.add(puntuacion > palabrasJugadas / 2 ? 'correcto' : 'incorrecto'); // Color según resultado
-                feedbackMessage.classList.remove(puntuacion > palabrasJugadas / 2 ? 'incorrecto' : 'correcto'); // Quita la clase opuesta
+                feedbackMessage.classList.remove('correcto', 'incorrecto'); // Limpia colores previos
+                feedbackMessage.classList.add(puntuacion >= palabrasJugadas / 2 ? 'correcto' : 'incorrecto'); // Color según resultado
                 habilitarBotones(false);
                 restartButton.style.display = 'block'; // Muestra el botón de reiniciar
             }
@@ -486,7 +538,7 @@
                 restartButton.style.display = 'none'; // Oculta el botón de reiniciar
                 feedbackMessage.textContent = '';
                 gameSection.classList.remove('hidden'); // Asegurarse de que el juego esté visible
-                cargarSiguiente_palabra(); // Inicia con la primera palabra
+                cargarSiguientePalabra(); // Inicia con la primera palabra (¡corregido el typo aquí!)
             }
 
             // --- Event Listeners ---
